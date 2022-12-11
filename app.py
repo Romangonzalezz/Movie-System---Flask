@@ -4,9 +4,8 @@ from http import HTTPStatus
 
 app = Flask(__name__)
 
-
-usuarios= []
-with open ("usuarios.json", "r", encoding='utf-8') as usuarios_json:
+#Cargamos los JSON en nuestro Core
+with open ("usuarios.json", encoding='utf-8') as usuarios_json:
     usuarios = json.load(usuarios_json)
 
 
@@ -16,7 +15,6 @@ with open ("peliculas.json", encoding='utf-8') as peliculas_json:
 #Cantidad de Peliculas cargadas:
 print("Peliculas: ", len(peliculas["peliculas"]))
  
-
 # Home PAGINA PRINCIPAL HTML
 @app.route('/Home')
 @app.route('/')
@@ -26,7 +24,7 @@ def Home():
 # Listar Usuarios Postman
 @app.route('/usuarios')
 def ListaUsuarios():
-    return jsonify(usuarios)
+    return(usuarios)
 
 
 # Ingresar Usuario desde Formulario HTML
@@ -42,54 +40,31 @@ def Ingresar():
                 return('Error cuenta no registrada o campos incorrectos')
     return render_template('login.html', usuarios=usuarios)
 
-# Postman
-@app.route('/crear_usuario', methods=['POST'])
-def crear_usuario():
-    global usuarios
-    #Datos del index
-    datos_usuario= request.get_json(usuarios_json)
-    print(datos_usuario) 
-    id_usuario= usuarios["usuarios"][-1]["id"]
-    id= id_usuario+1
-    if (("nombre" in datos_usuario) and ("password" in datos_usuario)):
-        usuarios["usuarios"].append({
-            "id": id,
-            "nombre": datos_usuario["nombre"],
-            "password": datos_usuario["password"]
-            })
-        #usuarios.insert
-        return Response(status= HTTPStatus.OK)
-    else:
-        return Response("{}", status= HTTPStatus.BAD_REQUEST)
 
-
-
-
-'''
-# Peliculas
+# Listar Peliculas Postman
 @app.route('/peliculas')
 def ListarPeliculas():
     return peliculas
+
 # Agregar peliculas
-@app.route("/agregar/pelicula", method = ["POST"])
+@app.route("/agregar/pelicula", methods = ["POST"])
 def agregar_pelicula():
-    #Recibir datos del cliente
-    datos_cliente = request.get_json()
-    #id?
-    if (("titulo" in datos_cliente) and ("anio" in datos_cliente) and ("director" in datos_cliente) and ("genero" in datos_cliente) and ("actores" in datos_cliente) and ("sipnosis" in datos_cliente) and ("imagen" in datos_cliente)):
-        peliculas["peliculas"].append({
-            "titulo" : datos_cliente["titulo"],
-            "anio" : datos_cliente["anio"],
-            "director" : datos_cliente["director"],
-            "genero" : datos_cliente["genero"],
-            "actores": datos_cliente["actores"],
-            "sipnosis" : datos_cliente["sipnosis"],
-            "imagen" : datos_cliente["imagen"]
-            })
-        return Response(datos_cliente["titulo"], status= HTTPStatus.OK)
+    #Abrimos Json metodo Write
+    with open ('peliculas.json', "w") as peliculas_file:
+        json.dump(peliculas, peliculas_file,indent=5)
+
+    #Recibir datos del clientes
+    data = request.get_json()
+    temp = peliculas["peliculas"]
+
+    # Checkeamos si esta bien el body de POSTMAN
+    if ("titulo" in data) and ("anio" in data) and ("director" in data) and ("genero" in data) and ("sipnosis" in data) and ("imagen" in data):
+        temp.append(data)
+        return Response('Agregada exitosamente ' + data["titulo"], status= HTTPStatus.OK)
     else:
         return Response("{}", status= HTTPStatus.BAD_REQUEST)
- 
+
+''' 
 # Eliminar peliculas
 @app.route('/peliculas/delete', methods=['DELETE'])
 def eliminar_pelicula():
@@ -97,11 +72,12 @@ def eliminar_pelicula():
     if (["titulo"] in datos_pelicula) and (["anio"] in datos_pelicula)):
         #for pelicula in peliculas["titulo"]:
         print("pelicula borrada")
-       return Response(datos_cliente["titulo"], status= HTTPStatus.OK)
+        return Response(datos_cliente["titulo"], status= HTTPStatus.OK)
     else:
         return Response("{}", status= HTTPStatus.BAD_REQUEST)
-        
-    
+        '''
+
+
 # Actualizar pelicula
 @app.route("/actualizar/pelicula", methods = ["PUT"])
 def actualizar_datos_pelicula():
@@ -113,7 +89,7 @@ def actualizar_datos_pelicula():
                 return Response(status= HTTPStatus.OK)
     else:
         return Response("{}", status= HTTPStatus.BAD_REQUEST)
-'''
+
 
 
 if __name__ == '__main__':
