@@ -57,38 +57,53 @@ def agregar_pelicula():
     data = request.get_json()
     temp = peliculas["peliculas"]
 
-    # Checkeamos si esta bien el body de POSTMAN
+    # Chequeamos si esta bien el body de POSTMAN
     if ("titulo" in data) and ("anio" in data) and ("director" in data) and ("genero" in data) and ("sipnosis" in data) and ("imagen" in data):
         temp.append(data)
         return Response('Agregada exitosamente ' + data["titulo"], status= HTTPStatus.OK)
     else:
         return Response("{}", status= HTTPStatus.BAD_REQUEST)
 
-''' 
 # Eliminar peliculas
 @app.route('/peliculas/delete', methods=['DELETE'])
 def eliminar_pelicula():
-    datos_pelicula= request.get_json()
-    if (["titulo"] in datos_pelicula) and (["anio"] in datos_pelicula)):
-        #for pelicula in peliculas["titulo"]:
-        print("pelicula borrada")
-        return Response(datos_cliente["titulo"], status= HTTPStatus.OK)
-    else:
-        return Response("{}", status= HTTPStatus.BAD_REQUEST)
-        '''
+    #Recibimos data del POSTMAN
+    data = request.get_json()
+    
+    #Chequeamos la data
+    if request.method == 'DELETE':
+        for pelicula in peliculas["peliculas"]:
+            if ("titulo" in data) and ("anio" in data):
+                if (pelicula["titulo"] == data["titulo"]) and (pelicula["anio"] == data["anio"]):
+                    
 
+                    print("estamos aca")
 
+                    # Borramos la pelicula del JSON
+                    pelicula.clear()
+
+                    # Dumpeamos Json en modoo Write
+                    with open ('peliculas.json', "w") as peliculas_file:
+                        json.dump(peliculas, peliculas_file, indent=5)
+
+                    return Response('Pelicula borrada exitosamente', status= HTTPStatus.OK)
+        else:
+            return Response("{}", status= HTTPStatus.BAD_REQUEST)
+    
+    
+''' 
 # Actualizar pelicula
 @app.route("/actualizar/pelicula", methods = ["PUT"])
 def actualizar_datos_pelicula():
-    datos_cliente = request.get_json()
-    if (("titulo" in datos_cliente) and ("anio" in datos_cliente) and ("genero" in datos_cliente)):
+    data = request.get_json()
+    if (("titulo" in data) and ("anio" in data) and ("genero" in data)):
         for pelicula in peliculas["peliculas"]:
-            if ((pelicula["titulo"] == datos_cliente["titulo"]) and (pelicula["anio"] == datos_cliente["anio"]) and (pelicula["genero"] in datos_cliente["genero"])):            
+            if ((pelicula["titulo"] == data["titulo"]) and (pelicula["anio"] == data["anio"]) and (pelicula["genero"] in data["genero"])):            
                 print("pelicula actualizada")
                 return Response(status= HTTPStatus.OK)
     else:
         return Response("{}", status= HTTPStatus.BAD_REQUEST)
+'''
 
 
 
