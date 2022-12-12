@@ -1,16 +1,16 @@
 import json
 
-with open ("prueba_logica/usuarios.js","r") as archivoJson:
-    usuarios = json.load(archivoJson)
+with open ("prueba_logica/usuarios.json","r") as archivojson:
+    usuarios = json.load(archivojson)
 
-with open ("prueba_logica/peliculas.js", "r") as peliculas_json:
+with open ("prueba_logica/peliculas.json", "r") as peliculas_json:
      peliculas= json.load(peliculas_json)
 
-with open ("prueba_logica/comentarios.js","r", ) as comentarios_json:
+with open ("prueba_logica/comentarios.json","r", ) as comentarios_json:
     comentarios = json.load(comentarios_json)
 
 # def guardar_json():
-#     with open ("prueba_logica/peliculas_prueba.js", "w") as peliculas_json:
+#     with open ("prueba_logica/peliculas_prueba.json", "w") as peliculas_json:
 #         json.dump(peliculas, peliculas_json, ident=6)
 
 
@@ -53,9 +53,9 @@ def agregarComentario(idUsuario):
             comentarios.append(nuevoComentario)   
 
         print("Comentario exitoso!!")
-        with open("prueba_logica/peliculas.js", "w") as comentarios_json:        
+        with open("prueba_logica/peliculas.json", "w") as comentarios_json:        
             json.dump(peliculas, comentarios_json, indent=4)
-        with open("prueba_logica/comentarios.js", "w") as comentarios_json:        
+        with open("prueba_logica/comentarios.json", "w") as comentarios_json:        
             json.dump(comentarios, comentarios_json, indent=4)
         input("Ingrese enter para continuar...")
         return MenuBienvenida()
@@ -94,10 +94,10 @@ def eliminarComentario(idUsuario):
     #comentario de salida + guardado de jsons
     if encontrada == True:
         print("Borrado con exito")
-        with open("peliculas.js", "w") as comentarios_json:
+        with open("peliculas.json", "w") as comentarios_json:
         
             json.dump(peliculas, comentarios_json, indent=4)
-        with open("prueba_logica/comentarios.js", "w") as comentarios_json:
+        with open("prueba_logica/comentarios.json", "w") as comentarios_json:
             json.dump(comentarios, comentarios_json, indent=4)
     else:
         print("Error al borrar")
@@ -136,9 +136,9 @@ def modificarComentario(idUsuario):
 
     if encontrada == True:
         print("Modificacion con exito")
-        with open("prueba_logica/peliculas.js", "w") as comentarios_json:
+        with open("prueba_logica/peliculas.json", "w") as comentarios_json:
             json.dump(peliculas, comentarios_json, indent=4)
-        with open("prueba_logica/comentarios.js", "w") as comentarios_json:
+        with open("prueba_logica/comentarios.json", "w") as comentarios_json:
             json.dump(comentarios, comentarios_json, indent=4)
     else:
         print("Error al modificar")
