@@ -57,6 +57,11 @@ def agregar_pelicula():
     data = request.get_json()
     temp = peliculas["peliculas"]
 
+    #Si lo hacemos con el Get como generamos un id automatico antes y lo importamos a DATA 
+    # antes de subir a PELICULAS. Porque lo mismo nos va a pasar en comentarios.
+    # id_pelicula= pelicula["peliculas"][-1]["id"]
+    # id= id_pelicula
+
     # Chequeamos si esta bien el body de POSTMAN
     if ("titulo" in data) and ("anio" in data) and ("director" in data) and ("genero" in data) and ("sipnosis" in data) and ("imagen" in data):
         temp.append(data)
@@ -81,6 +86,8 @@ def eliminar_pelicula():
 
                     # Borramos la pelicula del JSON
                     pelicula.clear()
+                    #Clear o remove???
+
 
                     # Dumpeamos Json en modoo Write
                     with open ('peliculas.json', "w") as peliculas_file:
