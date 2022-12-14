@@ -101,7 +101,7 @@ def eliminar_pelicula():
         else:
             return Response("{}", status= HTTPStatus.BAD_REQUEST)
     
-
+'''
 # Actualizar pelicula
 @app.route("/actualizar/pelicula", methods = ["PUT"])
 def actualizar_datos_pelicula():
@@ -117,6 +117,42 @@ def actualizar_datos_pelicula():
                     return Response(status= HTTPStatus.OK)
         else:
             return Response("{}", status= HTTPStatus.BAD_REQUEST)
+'''
+
+# Actualizar pelicula
+@app.route("/actualizar/pelicula", methods = ["PUT"])
+def actualizar_pelicula():
+
+    # Recibimos data del body POSTMAN, (la pelicula que vamos a modificar)
+    data = request.get_json()
+    
+
+    # Chequeamos si es por el metodo http PUT
+    if request.method == 'PUT':
+        for pelicula in peliculas["peliculas"]:
+            if ("titulo" in data):
+                if (pelicula["titulo"] == data["titulo"]):
+                    print(pelicula)
+                    if ("titulo" in data) or ("anio" in data) or ("director" in data) or ("genero" in data) or ("sinopsis" in data) or ("imagen" in data):
+                            if ("anio" in data):    
+                                pelicula["anio"] = data["genero"]
+                            if ("director" in data):  
+                                pelicula["director"] = data["director"]
+                            if ("genero" in data):
+                                pelicula["genero"] = data["genero"]
+                            if ("sinopsis" in data):
+                                pelicula["sinopsis"] = data["sinopsis"]
+                            if ("imagen" in data):
+                                pelicula["imagen"] = data["imagen"]
+
+                    # MOSTRAMOS EN EL POSTMAN LOS CAMPOS DE LA PELICULA CON SUS DATOS
+                    return Response("Pelicula modificada",status= HTTPStatus.OK)
+                    
+                #Dumpeamos en el JSON
+                with open ('peliculas.json', "w") as peliculas_file:
+                        json.dump(peliculas, peliculas_file, indent=5)
+    else:
+        return Response("{}", status= HTTPStatus.BAD_REQUEST)
 
 
 if __name__ == '__main__':
