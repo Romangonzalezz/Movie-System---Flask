@@ -13,29 +13,24 @@
   <div class="topnav">
     <a class="active" href="{{ url_for('Home') }}">Peliculas</a>
     <div class="topnav-right">
-      <a href="#about">Login</a>
+      <a href="{{ url_for('Ingresar') }}">Login</a>
     </div>
   </div>
 
-    <div>
-    <div> 
-    {% for pelicula in peliculas.peliculas %}
-    <div>
-    <div>
-        <img src="{{ pelicula.imagen }}">
-        <div>
-          <h5>{{ pelicula.titulo }}</h5>
-          <p> {{ pelicula.sipnosis }}</p>
-          <div>
-          <a href="#"> Comentarios  </a>
-          </div>
-        </div>
-    </div>
-    </div>
-    {% endfor %}
-    </div>
-    </div>
     
-        
+  <div class="container"> 
+  <div class="box-container">  
+  {% for pelicula in peliculas.peliculas %}
+    
+    <div class="box">
+      <img src="{{ pelicula.imagen }}" alt="Pelis">
+      <h3>{{ pelicula.titulo }}</h3>
+      <p>{{ pelicula.sinopsis }}</p>
+      <a href="#" class="btn">Comentarios</a>
+  </div>
+  {% endfor %}
+  </div>
+  </div>
+
 </body>
 </html>

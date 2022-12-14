@@ -10,70 +10,54 @@
 <body>
     <div class="topnav">
         <a class="active" href="{{ url_for('Home') }}">Peliculas</a>
-        <div class="topnav-right">
-          <a href="#logout">logout</a>
-        </div>
     </div>
     
     
     
     <div class="background-one">
         <div class="link-container">
-          <a class="link-one" >Subi Tu Pelicula :D
-            
-            
-            <input type="file"> 
-          
+          <a class="link-one" >Subi Tu Pelicula :D</a>
             
         
-        
-        <br
         <br>
-            
-            <input type="text" placeholder="Titulo" id="titulo"></a>
+        <br>
+        <form method="POST" action="">
+            <div class="pelicula-box"> 
+            <label for="titulo">Titulo: </label>
+            <input type="text" placeholder="Titulo" id="titulo" name="titulo">
             <br>
-            <input style="margin-left: -465px;" type="text" placeholder="Anio" ></a>
+            <label for="anio">Anio: </label>
+            <input  type="text" placeholder="Anio" id="anio" name="anio">
             <br>
-            <input style="margin-left: -465px;" type="text" placeholder="Director"></a>
+            <label for="director">Anio: </label>
+            <input  type="text" placeholder="Director" id="director" name="director">
             <br>
-            <input style="margin-left: -465px;" type="text" placeholder="Genero"></a>
+            <label for="genero">Genero: </label>
+            <input  type="text" placeholder="Genero" id="genero" name="genero">
             <br>
-            <input style="margin-left: -465px;" type="text" placeholder="Sipnosis"></a>
+            <label for="sinopsis">Sinopsis: </label>
+            <textarea id="sinopsis" name="sinopsis" rows="10" cols="50"></textarea>
             <br>
-            <input  style="margin-left: -465px;" type="submit" placeholder="Enviar Pelicula."></a>
+            <label for="imagen" class="imagen-box">Portada de la pelicula </label>
+            <input  type="file" id="imagen" name="imagen">
             <br>
-            <input class="reset" style="margin-left: -465px;" type="reset" placeholder="Enviar Pelicula."></a>
-            
-         
+            <input  type="submit" placeholder="Enviar">
+            <br>
+            </div>
+        </form>
         </div>
       </div>
       <div class="background-two link-container">
         <a class="link-two" >Usuarios Premiun</a>
-       
+        {% for usuario in usuarios.usuarios %}
+        <h1>{{ usuario.nombre }}</h1>
+        {% endfor %}
       </div>
       <div class="background-three link-container">
-        <a class="link-three" >Peliculas subidas</a>
+        <a class="link-three" href="{{ url_for ('Home') }}">Peliculas subidas</a>
       
    
       </div>
-
-
-
-
-
-
-
-
-      
-    
-
-
-
-   
-
-
-
 
 
 </body>
-</html>
