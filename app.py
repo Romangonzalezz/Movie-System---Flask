@@ -85,14 +85,11 @@ def eliminar_pelicula():
             if ("titulo" in data) and ("anio" in data):
                 if (pelicula["titulo"] == data["titulo"]) and (pelicula["anio"] == data["anio"]):
                     
-
                     print("estamos aca")
 
                     # Borramos la pelicula del JSON
                     pelicula.clear()
-                    #Clear o remove???
-
-
+    
                     # Dumpeamos Json en modoo Write
                     with open ('peliculas.json', "w") as peliculas_file:
                         json.dump(peliculas, peliculas_file, indent=5)
@@ -101,27 +98,10 @@ def eliminar_pelicula():
         else:
             return Response("{}", status= HTTPStatus.BAD_REQUEST)
     
-'''
+
 # Actualizar pelicula
 @app.route("/actualizar/pelicula", methods = ["PUT"])
 def actualizar_datos_pelicula():
-
-    # Recibimos data del body POSTMAN
-    data = request.get_json()
-
-    if request.method == 'PUT':
-        if ("titulo" in data) or ("anio" in data) or ("director" in data) or ("genero" in data) or ("sinopsis" in data) or ("imagen" in data):
-            for pelicula in peliculas["peliculas"]:
-                if ((pelicula["titulo"] == data["titulo"]) and (pelicula["anio"] == data["anio"]) and (pelicula["genero"] in data["genero"])):            
-                    print("pelicula actualizada")
-                    return Response(status= HTTPStatus.OK)
-        else:
-            return Response("{}", status= HTTPStatus.BAD_REQUEST)
-'''
-
-# Actualizar pelicula
-@app.route("/actualizar/pelicula", methods = ["PUT"])
-def actualizar_pelicula():
 
     # Recibimos data del body POSTMAN, (la pelicula que vamos a modificar)
     data = request.get_json()
@@ -135,7 +115,7 @@ def actualizar_pelicula():
                     print(pelicula)
                     if ("titulo" in data) or ("anio" in data) or ("director" in data) or ("genero" in data) or ("sinopsis" in data) or ("imagen" in data):
                             if ("anio" in data):    
-                                pelicula["anio"] = data["genero"]
+                                pelicula["anio"] = data["anio"]
                             if ("director" in data):  
                                 pelicula["director"] = data["director"]
                             if ("genero" in data):
@@ -145,12 +125,13 @@ def actualizar_pelicula():
                             if ("imagen" in data):
                                 pelicula["imagen"] = data["imagen"]
 
+                    #Dumpeamos en el JSON
+                    with open ('peliculas.json', "w") as peliculas_file:
+                        json.dump(peliculas, peliculas_file, indent=5)
+
                     # MOSTRAMOS EN EL POSTMAN LOS CAMPOS DE LA PELICULA CON SUS DATOS
                     return Response("Pelicula modificada",status= HTTPStatus.OK)
                     
-                #Dumpeamos en el JSON
-                with open ('peliculas.json', "w") as peliculas_file:
-                        json.dump(peliculas, peliculas_file, indent=5)
     else:
         return Response("{}", status= HTTPStatus.BAD_REQUEST)
 
