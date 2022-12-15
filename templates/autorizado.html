@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autorizado</title>
     <link rel="stylesheet" href="static/autorizado.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <body>
+    <div class="body-1">
     <div class="topnav">
-        <a class="active" href="{{ url_for('Home') }}">Peliculas</a>
+        <a class="active"> USUARIO PREMIUM </a>
     </div>
     
     
@@ -23,25 +25,25 @@
         <br>
         <form method="POST" action="">
             <div class="pelicula-box"> 
-            <label for="titulo">Titulo: </label>
+            <label for="titulo" class="label-post">Titulo: </label>
             <input type="text" placeholder="Titulo" id="titulo" name="titulo">
             <br>
-            <label for="anio">Anio: </label>
+            <label for="anio" class="label-post">Anio: </label>
             <input  type="text" placeholder="Anio" id="anio" name="anio">
             <br>
-            <label for="director">Anio: </label>
+            <label for="director" class="label-post">Director: </label>
             <input  type="text" placeholder="Director" id="director" name="director">
             <br>
-            <label for="genero">Genero: </label>
+            <label for="genero" class="label-post">Genero: </label>
             <input  type="text" placeholder="Genero" id="genero" name="genero">
             <br>
-            <label for="sinopsis">Sinopsis: </label>
+            <label for="sinopsis" class="label-post">Sinopsis: </label>
             <textarea id="sinopsis" name="sinopsis" rows="10" cols="50"></textarea>
             <br>
             <label for="imagen" class="imagen-box">Portada de la pelicula </label>
             <input  type="file" id="imagen" name="imagen">
             <br>
-            <input  type="submit" placeholder="Enviar">
+            <input  type="submit" placeholder="Enviar" class="enviar-btn">
             <br>
             </div>
         </form>
@@ -58,6 +60,28 @@
       
    
       </div>
+    </div>
+     
+    
+  <div class="container"> 
+  <div class="box-container">  
+  {% for pelicula in peliculas.peliculas %}
+    
+    <div class="box">
+      <img src="{{ pelicula.imagen }}" alt="Pelis">
+      <h3>{{ pelicula.titulo }}</h3>
+      <p>{{ pelicula.sinopsis }}</p>
+      <a href="#" class="btn">Comentarios</a>
+
+  </div>
+  {% endfor %}
+  </div>
+
+
+  </div>
+    
+    
 
 
 </body>
+</html>
