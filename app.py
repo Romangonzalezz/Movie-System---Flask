@@ -173,6 +173,29 @@ def agregar_pelicula_html():
         return Response("{}", status= HTTPStatus.BAD_REQUEST)
 
 
+# Eliminar peliculas desde HTML
+@app.route("/usuario_premium/eliminar_pelicula", methods = ["GET","POST"])
+def eliminar_pelicula_html():
+
+    #Recibimos data del FORMULARIO HTML
+    data = request.form.get('titulo')
+    
+    #Chequeamos la data
+    if request.method == 'POST':
+        for pelicula in peliculas["peliculas"]:
+                if (data == pelicula["titulo"]):
+                
+                    # Borramos la pelicula del JSON
+                    pelicula.clear()
+
+                    # Dumpeamos Json en modoo Write
+                    with open ('peliculas.json', "w") as peliculas_file:
+                        json.dump(peliculas, peliculas_file, indent=5)
+
+                    return Response('Pelicula borrada exitosamente', status= HTTPStatus.OK)
+        else:
+            return Response("{}", status= HTTPStatus.BAD_REQUEST)
+    return render_template('eliminar_pelicula.html', peliculas=peliculas)
 
 
 if __name__ == '__main__':
