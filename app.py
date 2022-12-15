@@ -26,24 +26,10 @@ def Home():
 def ListaUsuarios():
     return(usuarios)
 
-
-# Ingresar Usuario desde Formulario HTML
-@app.route('/login', methods=['GET', 'POST'])
-def Ingresar():
-    user = request.form.get('user')
-    passw = request.form.get('password')
-    if request.method == 'POST':
-        for usuario in usuarios['usuarios']:
-            if (usuario['nombre'] == user) and (usuario['password'] == passw):
-                return redirect('/usuario_premium')
-            else:
-                return('Error cuenta no registrada o campos incorrectos')
-    return render_template('login.html', usuarios=usuarios)
-
 # Cuando el usuario esta logeado
 @app.route('/usuario_premium')
 def UsuarioPremium():
-    return render_template('autorizado.html', usuarios=usuarios)
+    return render_template('autorizado.html', usuarios=usuarios, peliculas=peliculas)
 
 # Listar Peliculas POSTMAN
 @app.route('/peliculas')
@@ -134,6 +120,59 @@ def actualizar_datos_pelicula():
                     
     else:
         return Response("{}", status= HTTPStatus.BAD_REQUEST)
+
+
+# Forms desde HTML 
+
+# Ingresar Usuario desde Formulario HTML
+@app.route('/login', methods=['GET', 'POST'])
+def Ingresar():
+    user = request.form.get('user')
+    passw = request.form.get('password')
+    if request.method == 'POST':
+        for usuario in usuarios['usuarios']:
+            if (usuario['nombre'] == user) and (usuario['password'] == passw):
+                return redirect('/usuario_premium')
+            else:
+                return('Error cuenta no registrada o campos incorrectos')
+    return render_template('login.html', usuarios=usuarios)
+
+# Agregar peliculas desde HTML
+@app.route("/usuario_premium", methods = ["POST"])
+def agregar_pelicula_html():
+    #Recibir datos del clientes
+    data_titulo = request.form.get('titulo')
+    data_anio = request.form.get('anio')
+    data_director = request.form.get('director')
+    data_genero = request.form.get('genero')
+    data_sinopsis = request.form.get('sinopsis')
+    data_imagen = request.form.get('imagen')
+
+    temp = peliculas["peliculas"]
+    # Validamos informacion del formulario
+    if request.method == 'POST':
+            json_html = {
+                "titulo": data_titulo,
+                "anio": data_anio,
+                "director": data_director,
+                "genero": data_genero,
+                "sinopsis": data_sinopsis,
+                "imagen": data_imagen
+            }
+
+            jsonify(json_html)
+            
+            # Pasamos la info al JSON
+            temp.append(json_html)
+
+            #Abrimos Json metodo Write
+            with open ('peliculas.json', "w") as peliculas_file:
+                json.dump(peliculas, peliculas_file, indent=5)
+            return Response('Pelicula agregada exitosamente ', status= HTTPStatus.OK)
+    else:
+        return Response("{}", status= HTTPStatus.BAD_REQUEST)
+
+
 
 
 if __name__ == '__main__':
