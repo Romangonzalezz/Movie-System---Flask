@@ -1,0 +1,46 @@
+[
+    {
+        "id" : 1,
+        "genero" : "Accion"        
+    },
+    {
+        "id" : 2,
+        "genero" : "Ciencia Ficcion"
+    },
+    {
+        "id" : 3,
+        "genero" : "Comedia"
+    },
+    {
+        "id" : 4,
+        "genero" : "Drama"
+    },
+    {
+        "id" : 5,
+        "genero" : "Fantasia"
+    },
+    {
+        "id" : 6,
+        "genero" : "Melodrama"
+    },
+    {
+        "id" : 7,
+        "genero" : "Musical"
+    },
+    {
+        "id" : 8,
+        "genero" : "Romance"
+    },
+    {
+        "id" : 9,
+        "genero" : "Suspenso"
+    },
+    {
+        "id" : 10,
+        "genero" : "Terror"
+    },
+    {
+        "id" : 11,
+        "genero" : "Documental"
+    }    
+]
