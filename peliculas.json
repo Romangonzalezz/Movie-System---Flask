@@ -167,6 +167,14 @@
                "genero": "Fantasia",
                "sinopsis": "Esto es una Prueba con Link de imagen",
                "imagen": "photo_2022-05-22_18-59-49.jpg"
+          },
+          {
+               "titulo": "Avatar",
+               "anio": "2022",
+               "director": "sadasd",
+               "genero": "Aventura",
+               "sinopsis": "asdasdasddsvdsfsdf",
+               "imagen": "https://image.tmdb.org/t/p/w185_and_h278_bestv2/tXmTHdrZgNsULqCbThK2Dt2X9Wt.jpg"
           }
      ]
 }
