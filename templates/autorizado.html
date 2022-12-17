@@ -12,6 +12,8 @@
     <div class="body-1">
     <div class="topnav">
         <a class="active"> USUARIO PREMIUM </a>
+        <a class="active" id="a-nav" href="{{ url_for('eliminar_pelicula_html') }}"> ELIMINAR PELICULA </a>
+        <a class="active" id="a-nav"> MODIFICAR PELICULA </a>
     </div>
     
     
@@ -28,7 +30,7 @@
             <label for="titulo" class="label-post">Titulo: </label>
             <input type="text" placeholder="Titulo" id="titulo" name="titulo">
             <br>
-            <label for="anio" class="label-post">Año: </label>
+            <label for="anio" class="label-post">Anio: </label>
             <input  type="text" placeholder="Anio" id="anio" name="anio">
             <br>
             <label for="director" class="label-post">Director: </label>
@@ -40,8 +42,8 @@
             <label for="sinopsis" class="label-post">Sinopsis: </label>
             <textarea id="sinopsis" name="sinopsis" rows="10" cols="50"></textarea>
             <br>
-            <label for="imagen" class="label-post">LINK imagen:  </label>
-            <input  type="text" id="imagen" name="imagen">
+            <label for="imagen" class="imagen-box">URL IMAGEN DE PELICULA:  </label>
+            <input  type="url" id="imagen" name="imagen">
             <br>
             <input  type="submit" placeholder="Enviar" class="enviar-btn">
             <br>
@@ -56,14 +58,15 @@
         {% endfor %}
       </div>
       <div class="background-three link-container">
-        <a class="link-three" href="{{ url_for ('Home') }}">Peliculas subidas</a>
+        <a class="link-three" href="#abajo">Peliculas subidas</a>
       
    
       </div>
     </div>
      
-    
+  
   <div class="container"> 
+  <a name="abajo"></a>
   <div class="box-container">  
   {% for pelicula in peliculas.peliculas %}
     
