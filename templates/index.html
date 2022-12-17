@@ -17,6 +17,27 @@
     </div>
   </div>
 
+  
+  <form action="#" class="select-box">
+    <label for="director" class="label-style">Director:</label>
+    <select name="director" id="director">
+      {% for director in directores.directores %}
+      <option>{{ director.director }}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" value="Buscar" class="butt-select"/>
+  </form>
+
+  <form action="#" class="select-box">
+    <label for="genero" class="label-style">Genero:</label>
+    <select name="genero" id="genero">
+      {% for genero in generos.generos %}
+      <option>{{ genero.genero }}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" value="Buscar" class="butt-select" />
+  </form>
+
     
   <div class="container"> 
   <div class="box-container">  
