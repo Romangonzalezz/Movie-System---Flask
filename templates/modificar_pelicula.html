@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/modificar_pelicula.css">
+    <title>  Modificar pelicula  </title>
+</head>
+
+
+<body>
+    <div class="topnav">
+        <a class="active" href="{{ url_for('UsuarioPremium') }}">VOLVER ATRAS</a>
+    </div>
+
+
+
+<form action="" method="post">
+
+    <div class="form-box">
+        <form action="" method="post">
+
+
+          <label for="titulo">Titulo de la pelicula que vas a modificar: </label>
+          <input type="text" placeholder="Titulo" id="titulo" name="titulo">
+
+          <label for="anio">Nuevo anio?: </label>
+          <input type="text" placeholder="anio" id="anio" name="anio">
+
+          <label for="director">Nuevo director?: </label>
+          <input type="text" placeholder="director" id="director" name="director">
+
+          <label for="genero">Genero nuevo?: </label>
+          <input type="text" placeholder="genero" id="genero" name="genero">
+
+          <label for="sinopsis">Sinopsis nueva?: </label>
+          <input type="text" placeholder="sinopsis" id="sinopsis" name="sinopsis">
+
+          <label for="imagen">Url de imagen nueva?: </label>
+          <input type="url" placeholder="imagen" id="imagen" name="imagen">
+
+
+          <div class="btn"> 
+          <button type="submit"> MODIFICAR </button>
+          </div>
+        </form>
+        </div>
+
+</form>
+
+
+</body>
+
+
+
+</html>
