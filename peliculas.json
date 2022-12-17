@@ -135,46 +135,6 @@
                "genero": "Cine de terror/Suspenso",
                "sinopsis": "Una joven familia se muda a una mansi\u00f3n sin conocer la aterradora historia que se esconde tras sus paredes. All\u00ed, el hijo peque\u00f1o hace una nueva amiga: una mu\u00f1eca con forma humana a la que llama Brahms.",
                "imagen": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ4c6NJVYQ_d8SnQce5l8fuEKhNKaXSjE801nOruM9FCQ5jNcB7"
-          },
-          {
-               "titulo": "TEST",
-               "anio": "2020",
-               "director": "William Brent Bell",
-               "genero": "Cine de terror/Suspenso",
-               "sinopsis": "Una joven familia se muda a una mansi\u00f3n sin conocer la aterradora historia que se esconde tras sus paredes. All\u00ed, el hijo peque\u00f1o hace una nueva amiga: una mu\u00f1eca con forma humana a la que llama Brahms.",
-               "imagen": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ4c6NJVYQ_d8SnQce5l8fuEKhNKaXSjE801nOruM9FCQ5jNcB7"
-          },
-          {
-               "titulo": "",
-               "anio": "",
-               "director": "",
-               "genero": "",
-               "sinopsis": "",
-               "imagen": ""
-          },
-          {
-               "titulo": "Prueba",
-               "anio": "2020",
-               "director": "LaloLanda",
-               "genero": "Fantasia",
-               "sinopsis": "Esto es una Prueba",
-               "imagen": "photo_2022-05-22_18-59-49.jpg"
-          },
-          {
-               "titulo": "Prueba",
-               "anio": "2020",
-               "director": "LaloLanda",
-               "genero": "Fantasia",
-               "sinopsis": "Esto es una Prueba con Link de imagen",
-               "imagen": "photo_2022-05-22_18-59-49.jpg"
-          },
-          {
-               "titulo": "Avatar",
-               "anio": "2022",
-               "director": "sadasd",
-               "genero": "Aventura",
-               "sinopsis": "asdasdasddsvdsfsdf",
-               "imagen": "https://image.tmdb.org/t/p/w185_and_h278_bestv2/tXmTHdrZgNsULqCbThK2Dt2X9Wt.jpg"
           }
      ]
 }
