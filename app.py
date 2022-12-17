@@ -48,7 +48,7 @@ def agregar_pelicula():
     with open ('peliculas.json', "w") as peliculas_file:
         json.dump(peliculas, peliculas_file,indent=5)
 
-    #Recibir datos del clientes
+    #Recibir datos del clientes 
     data = request.get_json()
     temp = peliculas["peliculas"]
 
