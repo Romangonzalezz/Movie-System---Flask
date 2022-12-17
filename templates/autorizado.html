@@ -74,7 +74,8 @@
       <img src="{{ pelicula.imagen }}" alt="Pelis">
       <h3>{{ pelicula.titulo }}</h3>
       <p>{{ pelicula.sinopsis }}</p>
-      <a href="#" class="btn">Comentarios</a>
+      <a href="{{ url_for('modificar_pelicula_html') }}" class="btn">Comentarios</a>
+      <a href="{{ url_for('eliminar_pelicula_html') }}" class="btn" >Eliminar</a> 
 
   </div>
   {% endfor %}
