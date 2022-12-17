@@ -8,6 +8,11 @@ app = Flask(__name__)
 with open ("usuarios.json", encoding='utf-8') as usuarios_json:
     usuarios = json.load(usuarios_json)
 
+with open ("generos.json", encoding='utf-8') as generos_json:
+    generos = json.load(generos_json)
+
+with open ("directores.json", encoding='utf-8') as directores_json:
+    directores = json.load(directores_json)
 
 with open ("peliculas.json", encoding='utf-8') as peliculas_json:
     peliculas = json.load(peliculas_json)
@@ -19,7 +24,7 @@ print("Peliculas: ", len(peliculas["peliculas"]))
 @app.route('/Home')
 @app.route('/')
 def Home():
-    return render_template('index.html', peliculas=peliculas)
+    return render_template('index.html', peliculas=peliculas, generos=generos, directores=directores)
 
 # Listar Usuarios
 @app.route('/usuarios')
@@ -199,6 +204,57 @@ def eliminar_pelicula_html():
         else:
             return Response("{}", status= HTTPStatus.BAD_REQUEST)
     return render_template('eliminar_pelicula.html', peliculas=peliculas)
+
+# Eliminar peliculas desde HTML
+@app.route("/usuario_premium/modificar_pelicula", methods = ["GET","POST"])
+def modificar_pelicula_html():
+
+    #Recibimos data del FORMULARIO HTML
+    data_titulo = request.form.get('titulo')
+    data_anio = request.form.get('anio')
+    data_director = request.form.get('director')
+    data_genero = request.form.get('genero')
+    data_sinopsis = request.form.get('sinopsis')
+    data_imagen = request.form.get('imagen')
+    
+    #Chequeamos la data
+    if request.method == 'POST':
+        for pelicula in peliculas["peliculas"]:
+                if (data_titulo == pelicula["titulo"]):
+                
+                    # Modificamos la pelicula en el JSON
+                    if data_anio == "":
+                        break
+                    else:
+                        pelicula["anio"] = data_anio
+                       
+                    if data_anio == "":
+                        break
+                    else:
+                        pelicula["director"] = data_director
+                    if data_anio == "":
+                        break
+                    else:
+                        pelicula["genero"] = data_genero
+
+                    if data_anio == "":
+                        break
+                    else:
+                        pelicula["sinopsis"] = data_sinopsis
+
+                    if data_anio == "":
+                        break
+                    else:
+                        pelicula["imagen"] = data_imagen
+
+                    # Dumpeamos Json en modoo Write
+                    with open ('peliculas.json', "w") as peliculas_file:
+                        json.dump(peliculas, peliculas_file, indent=5)
+
+                    return Response('Pelicula modificada exitosamente', status= HTTPStatus.OK)
+        else:
+            return Response("{}", status= HTTPStatus.BAD_REQUEST)
+    return render_template('modificar_pelicula.html', peliculas=peliculas)
 
 
 if __name__ == '__main__':
