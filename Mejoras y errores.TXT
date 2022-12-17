@@ -12,4 +12,10 @@ link imagen: "imagen" :
 
 
 Los generos no se si ponerlos dentro de una lista en Key "generos": o hacer un json aparte.
+-------
+
+TODO CORREGIDO
+-------
+
+Lo que faltan son los comentarios!! y director y genero
 
