@@ -17,6 +17,11 @@ with open ("directores.json", encoding='utf-8') as directores_json:
 with open ("peliculas.json", encoding='utf-8') as peliculas_json:
     peliculas = json.load(peliculas_json)
 
+with open ("comentarios.json", encoding='utf-8') as comentarios_json:
+    comentarios = json.load(comentarios_json)
+
+
+
 #Cantidad de Peliculas cargadas:
 print("Peliculas: ", len(peliculas["peliculas"]))
  
@@ -256,6 +261,29 @@ def modificar_pelicula_html():
             return Response("{}", status= HTTPStatus.BAD_REQUEST)
     return render_template('modificar_pelicula.html', peliculas=peliculas)
 
+# Mostrar comentarios HTML , hacer el Get para mostrar en el Historial de Comentarios,
+#  el POST para agregar con usuario y comentario. El PUT para modificarlo si es el mismo usuario.
 
+
+@app.route("/usuario_premium/get_comentarios", methods = ["GET"])
+def comentarios_html():
+
+
+    return render_template('comentarios.html', comentarios=comentarios)
+
+
+
+
+'''
+@app.route("/usuario_premium/post_put_comentarios", methods = ["GET, POST"])
+def agregar_comentarios_html():
+    # #Recibir datos del clientes 
+    # data = request.get_json()
+    # temp = comentarios["comentario"]
+
+    # #Recibimos data del FORMULARIO HTML
+    # data = request.form.get('comentario')
+    return render_template('comentarios.html', comentarios=comentarios)
+'''
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentario</title>
+    
+
+</head>
+
+<body>
+    <div class="topnav">
+      <div>
+        <a class="active" href="{{ url_for('autorizado_html') }}">VOLVER ATRAS</a>
+      </div>
+
+      <div class="form-box">
+      <form action="" method="post">
+        <label for="comentario">Comentario: </label>
+        <input type="text" placeholder="Escribe tu comentario" id="id_usuario" name="comentario">         
+        <div class="btn"> 
+        <button type="submit">COMENTAR</button>
+        </div>
+      </form>
+      </div>
+
+      <h1>Comentarios de Peliculas</h1>
+      <div class="container"> 
+        <a name="comentarios"></a>
+        <div class="box-container">  
+        {% for comentario in comentarios.comentario %}          
+          <div class="box">
+            <h2>{{ usuario.nombre }}</h2>
+            <h3>{{ pelicula.titulo }}</h3>          
+            <p>{{ comentarios.comentario }}</p>
+          </div>       
+        </div>
+        {% endfor %}
+      </div>
+
+
+    </div>
+
+    
+</body>
+</html>
