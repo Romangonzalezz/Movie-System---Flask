@@ -127,14 +127,17 @@ def actualizar_datos_pelicula():
 # Ingresar Usuario desde Formulario HTML
 @app.route('/login', methods=['GET', 'POST'])
 def Ingresar():
+
+    # Recibimos data del form
     user = request.form.get('user')
     passw = request.form.get('password')
+
     if request.method == 'POST':
         for usuario in usuarios['usuarios']:
             if (usuario['nombre'] == user) and (usuario['password'] == passw):
                 return redirect('/usuario_premium')
             else:
-                return('Error cuenta no registrada o campos incorrectos')
+                print('Usuario no registrado')
     return render_template('login.html', usuarios=usuarios)
 
 # Agregar peliculas desde HTML
