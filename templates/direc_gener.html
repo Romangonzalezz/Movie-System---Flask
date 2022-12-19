@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/direc_gener.css">
+    <title> Matches </title>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="{{ url_for('Home') }}">Peliculas</a>
+        <div class="topnav-right">
+          <a href="{{ url_for('Ingresar') }}">Login</a>
+        </div>
+    </div>
+
+    {% if res %}
+    <div class="container"> 
+        <div class="box-container">
+          <div class="box">
+            {% for i in res %}
+            <img src="{{ i.imagen }}" alt="Pelis">
+            <h3>{{ i.titulo }}</h3>
+            <p>{{ i.sinopsis }}</p>
+            <a href="#" class="btn">Comentarios</a>
+            <p style="font-weight: bolder; color: black;">{{ i.genero }}</p>
+            <p style="font-weight: bolder; color: red;">Director/es: {{ i.director }}</p>
+            {% endfor %}
+        </div>
+        </div>
+        </div>
+    {% elif res2 %}
+    <div class="container"> 
+        <div class="box-container">
+          <div class="box">
+            {% for i in res2 %}
+                <img src="{{ i.imagen }}" alt="Pelis">
+                <h3>{{ i.titulo }}</h3>
+                <p>{{ i.sinopsis }}</p>
+                <a href="#" class="btn">Comentarios</a>
+                <p style="font-weight: bolder; color: black;">{{ i.genero }}</p>
+                <p style="font-weight: bolder; color: red;">Director/es: {{ i.director }}</p>
+            {% endfor %}
+        </div>
+        </div>
+        </div>
+    {% endif %}
+</body>
+</html>

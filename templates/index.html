@@ -18,40 +18,44 @@
   </div>
 
   
-  <form action="#" class="select-box">
-    <label for="director" class="label-style">Director:</label>
-    <select name="director" id="director">
+  <form action="" class="select-box" method="post">
+    <label for="buscar_directores" class="label-style" id="prueba">Buscar por Director:</label>
+    <select name="buscar_directores" id="buscar_directores">
       {% for director in directores.directores %}
       <option>{{ director.director }}</option>
       {% endfor %}
     </select>
-    <input type="submit" value="Buscar" class="butt-select"/>
+    <input type="submit" value="Buscar" class="butt-select" name="buscar_directores"/>
   </form>
 
-  <form action="#" class="select-box">
-    <label for="genero" class="label-style">Genero:</label>
-    <select name="genero" id="genero">
+  <form action="" class="select-box" method="post">
+    <label for="buscar_generos" class="label-style" id="prueba">Buscar por Genero:</label>
+    <select name="buscar_generos" id="buscar_generos">
       {% for genero in generos.generos %}
       <option>{{ genero.genero }}</option>
       {% endfor %}
     </select>
-    <input type="submit" value="Buscar" class="butt-select" />
+    <input type="submit" value="Buscar" class="butt-select" name="buscar_generos"/>
   </form>
 
-    
+  
   <div class="container"> 
-  <div class="box-container">  
+  <div class="box-container">
   {% for pelicula in peliculas.peliculas %}
     
     <div class="box">
       <img src="{{ pelicula.imagen }}" alt="Pelis">
       <h3>{{ pelicula.titulo }}</h3>
       <p>{{ pelicula.sinopsis }}</p>
-
+      <a href="#" class="btn">Comentarios</a>
+      <p style="font-weight: bolder; color: black;">{{ pelicula.genero }}</p>
+      <p style="font-weight: bolder; color: red;">Director/es: {{ pelicula.director }}</p>
   </div>
   {% endfor %}
   </div>
   </div>
+
+
 
 </body>
 </html>
