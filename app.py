@@ -17,6 +17,9 @@ with open ("directores.json", encoding='utf-8') as directores_json:
 with open ("peliculas.json", encoding='utf-8') as peliculas_json:
     peliculas = json.load(peliculas_json)
 
+with open ("comentarios.json", encoding='utf-8') as comentarios_json:
+    comentarios = json.load(comentarios_json)
+
 #Cantidad de Peliculas cargadas:
 print("Peliculas: ", len(peliculas["peliculas"]))
  
@@ -172,6 +175,46 @@ def actualizar_datos_pelicula():
                     
     else:
         return Response("{}", status= HTTPStatus.BAD_REQUEST)
+
+# Agregar comentarios desde POSTMAN
+@app.route("/agregar/comentario", methods = ["POST"])
+def agregar_comentario():
+
+    #Recibir datos del clientes
+    data = request.get_json()
+    temp = comentarios
+
+    # Chequeamos si esta bien el body de POSTMAN
+    if ("titulo" in data) and ("nombre" in data) and ("comentario" in data):
+        temp.append(data)
+        #Abrimos Json metodo Write
+        with open ('comentarios.json', "w") as comentarios_file:
+            json.dump(comentarios, comentarios_file,indent=5)
+
+        return Response('Agregada exitosamente ' + str(data), status= HTTPStatus.OK)
+    else:
+        return Response("{}", status= HTTPStatus.BAD_REQUEST)
+
+# Optener comentarios desde POSMAN
+@app.route("/obtener/comentario", methods = ["GET"])
+def obtener_comentario():
+    #Recibir datos del clientes
+    data = request.get_json()
+    temp = comentarios
+    print(temp)
+    print(data)
+    # Chequeamos si esta bien el body de POSTMAN
+    if ("titulo" in data):
+        for pelicula in peliculas["peliculas"]:
+            for comentario in comentarios:
+                if (data["titulo"] == comentario["titulo"] and data["titulo"] == pelicula["titulo"]):
+                    return Response("Comentario echo por: "+ str({comentario["nombre"]}) + "\n" + str({comentario["comentario"]}), HTTPStatus.OK)
+    else: 
+        return Response("{}", status= HTTPStatus.BAD_REQUEST)
+
+
+
+# Eliminar comentarios desde POSMAN
 
 
 # Forms desde HTML 
