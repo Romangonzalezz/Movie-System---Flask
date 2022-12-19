@@ -43,20 +43,23 @@ def retornarDirectoresGeneros():
                 prueba = [pelicula for pelicula in peliculas["peliculas"] if pelicula["director"] == data_postman["director"]]
                 jsonify(prueba)
                 return Response(f"{prueba}", HTTPStatus.OK)
-            if "genero" in data_postman:
+
+        if "genero" in data_postman:
                 prueba2 = [pelicula for pelicula in peliculas["peliculas"] if pelicula["genero"] == data_postman["genero"]]
                 jsonify(prueba2)
                 return Response(f"{prueba2}", HTTPStatus.OK)
-        
+
         res = [pelicula for pelicula in peliculas["peliculas"] if pelicula["director"] == data_directores]
         res2 = [pelicula for pelicula in peliculas["peliculas"] if pelicula["genero"] == data_generos]
         jsonify(res)
         jsonify(res2)
         print(res2)
-        return render_template('direc_gener.html', res=res,res2=res2, generos=generos, directores=directores)      
+        return render_template('direc_gener.html', res=res,res2=res2, generos=generos, directores=directores)
     else:
         return Response("No se ha encontrado nada", status= HTTPStatus.BAD_REQUEST)
-                        
+
+
+
         
 
 
@@ -74,6 +77,16 @@ def UsuarioPremium():
 @app.route('/peliculas')
 def ListarPeliculas():
     return peliculas
+
+# Listar Directores POSTMAN
+@app.route('/directores')
+def ListarDirectores():
+    return directores
+
+# Listar Generos POSTMAN
+@app.route('/generos')
+def ListarGeneros():
+    return generos
 
 # Agregar peliculas desde POSTMAN
 @app.route("/agregar/pelicula", methods = ["POST"])
