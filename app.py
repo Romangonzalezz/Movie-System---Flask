@@ -17,11 +17,6 @@ with open ("directores.json", encoding='utf-8') as directores_json:
 with open ("peliculas.json", encoding='utf-8') as peliculas_json:
     peliculas = json.load(peliculas_json)
 
-with open ("comentarios.json", encoding='utf-8') as comentarios_json:
-    comentarios = json.load(comentarios_json)
-
-
-
 #Cantidad de Peliculas cargadas:
 print("Peliculas: ", len(peliculas["peliculas"]))
  
@@ -30,6 +25,31 @@ print("Peliculas: ", len(peliculas["peliculas"]))
 @app.route('/')
 def Home():
     return render_template('index.html', peliculas=peliculas, generos=generos, directores=directores)
+
+
+@app.route('/', methods = ["POST"])
+def retornarDirectoresGeneros():
+    # Recibimos data del form HTML
+    data_directores = request.form.get('buscar_directores')
+    data_generos = request.form.get('buscar_generos')
+
+    # Chequeamos y comparamos los json con la data
+    if request.method == 'POST':
+
+        res = [pelicula for pelicula in peliculas["peliculas"] if pelicula["director"] == data_directores]
+
+        res2 = [pelicula for pelicula in peliculas["peliculas"] if pelicula["genero"] == data_generos]
+
+        jsonify(res)
+        jsonify(res2)
+        print(res2)
+        
+        return render_template('direc_gener.html', res=res,res2=res2, generos=generos, directores=directores)      
+    else:
+        return Response("No se ha encontrado nada", status= HTTPStatus.BAD_REQUEST)
+                        
+        
+
 
 # Listar Usuarios
 @app.route('/usuarios')
@@ -53,7 +73,7 @@ def agregar_pelicula():
     with open ('peliculas.json', "w") as peliculas_file:
         json.dump(peliculas, peliculas_file,indent=5)
 
-    #Recibir datos del clientes 
+    #Recibir datos del clientes
     data = request.get_json()
     temp = peliculas["peliculas"]
 
@@ -261,29 +281,8 @@ def modificar_pelicula_html():
             return Response("{}", status= HTTPStatus.BAD_REQUEST)
     return render_template('modificar_pelicula.html', peliculas=peliculas)
 
-# Mostrar comentarios HTML , hacer el Get para mostrar en el Historial de Comentarios,
-#  el POST para agregar con usuario y comentario. El PUT para modificarlo si es el mismo usuario.
-
-
-@app.route("/usuario_premium/get_comentarios", methods = ["GET"])
-def comentarios_html():
-
-
-    return render_template('comentarios.html', comentarios=comentarios)
 
 
 
-
-'''
-@app.route("/usuario_premium/post_put_comentarios", methods = ["GET, POST"])
-def agregar_comentarios_html():
-    # #Recibir datos del clientes 
-    # data = request.get_json()
-    # temp = comentarios["comentario"]
-
-    # #Recibimos data del FORMULARIO HTML
-    # data = request.form.get('comentario')
-    return render_template('comentarios.html', comentarios=comentarios)
-'''
 if __name__ == '__main__':
     app.run(debug=True)
