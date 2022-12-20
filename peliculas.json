@@ -6,7 +6,8 @@
                "director": "James DeMonaco",
                "genero": "Terror / Suspenso",
                "sinopsis": "Se trata de doce horas en las que cualquier actividad criminal, incluso el asesinato, es legal.",
-               "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxyRno5s_1L-u2xuE3PgsLsFvWfKD1QQjvuDW2a_NCgbeLCAwz"
+               "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxyRno5s_1L-u2xuE3PgsLsFvWfKD1QQjvuDW2a_NCgbeLCAwz",
+               "nombre": "Mariano"
           },
           {
                "titulo": "Black Adam",
@@ -135,6 +136,14 @@
                "genero": "Cine de terror/Suspenso",
                "sinopsis": "Una joven familia se muda a una mansi\u00f3n sin conocer la aterradora historia que se esconde tras sus paredes. All\u00ed, el hijo peque\u00f1o hace una nueva amiga: una mu\u00f1eca con forma humana a la que llama Brahms.",
                "imagen": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ4c6NJVYQ_d8SnQce5l8fuEKhNKaXSjE801nOruM9FCQ5jNcB7"
+          },
+          {
+               "titulo": "R\u00e1pido y Furioso",
+               "anio": "2001",
+               "director": "Vin Diesel, Justin Lin, James Wan, F. Gary Gray, Rob Cohen, Louis Leterrier, John Singleton, Philip Atwell, Ian Bell",
+               "genero": "Crimen/Thriller",
+               "sinopsis": "Un polic\u00eda encubierto se infiltra en una banda de carreras callejeras de Los \u00c1ngeles mientras investiga robos de autom\u00f3viles.",
+               "imagen": "https://www.universalpictures-latam.com/tl_files/content/movies/fast9/posters/01.jpg"
           }
      ]
 }

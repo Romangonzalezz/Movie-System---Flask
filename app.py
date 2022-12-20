@@ -29,7 +29,6 @@ print("Peliculas: ", len(peliculas["peliculas"]))
 def Home():
     return render_template('index.html', peliculas=peliculas, generos=generos, directores=directores)
 
-
 @app.route('/', methods = ["POST"])
 def retornarDirectoresGeneros():
     # Recibimos data del form HTML
@@ -46,28 +45,24 @@ def retornarDirectoresGeneros():
                 prueba = [pelicula for pelicula in peliculas["peliculas"] if pelicula["director"] == data_postman["director"]]
                 jsonify(prueba)
                 return Response(f"{prueba}", HTTPStatus.OK)
-
-        if "genero" in data_postman:
+            if "genero" in data_postman:
                 prueba2 = [pelicula for pelicula in peliculas["peliculas"] if pelicula["genero"] == data_postman["genero"]]
                 jsonify(prueba2)
                 return Response(f"{prueba2}", HTTPStatus.OK)
-
+        
         res = [pelicula for pelicula in peliculas["peliculas"] if pelicula["director"] == data_directores]
         res2 = [pelicula for pelicula in peliculas["peliculas"] if pelicula["genero"] == data_generos]
         jsonify(res)
         jsonify(res2)
         print(res2)
-        return render_template('direc_gener.html', res=res,res2=res2, generos=generos, directores=directores)
+        return render_template('direc_gener.html', res=res,res2=res2, generos=generos, directores=directores)      
     else:
         return Response("No se ha encontrado nada", status= HTTPStatus.BAD_REQUEST)
-
-
-
+                        
         
 
-
 # Listar Usuarios
-@app.route('/usuarios')
+@app.route('/usuarios', methods = ["GET"])
 def ListaUsuarios():
     return(usuarios)
 
@@ -77,7 +72,7 @@ def UsuarioPremium():
     return render_template('autorizado.html', usuarios=usuarios, peliculas=peliculas)
 
 # Listar Peliculas POSTMAN
-@app.route('/peliculas')
+@app.route('/peliculas', methods = ["GET"])
 def ListarPeliculas():
     return peliculas
 
@@ -94,10 +89,6 @@ def ListarGeneros():
 # Agregar peliculas desde POSTMAN
 @app.route("/agregar/pelicula", methods = ["POST"])
 def agregar_pelicula():
-    #Abrimos Json metodo Write
-    with open ('peliculas.json', "w") as peliculas_file:
-        json.dump(peliculas, peliculas_file,indent=5)
-
     #Recibir datos del clientes
     data = request.get_json()
     temp = peliculas["peliculas"]
@@ -110,9 +101,13 @@ def agregar_pelicula():
     # Chequeamos si esta bien el body de POSTMAN
     if ("titulo" in data) and ("anio" in data) and ("director" in data) and ("genero" in data) and ("sinopsis" in data) and ("imagen" in data):
         temp.append(data)
+        #Abrimos Json metodo Write
+        with open ('peliculas.json', "w") as peliculas_file:
+            json.dump(peliculas, peliculas_file,indent=5)
         return Response('Agregada exitosamente ' + data["titulo"], status= HTTPStatus.OK)
     else:
         return Response("{}", status= HTTPStatus.BAD_REQUEST)
+
 
 # Eliminar peliculas con el Titulo y Anio desde POSTMAN
 @app.route('/peliculas/delete', methods=['DELETE'])
@@ -120,24 +115,32 @@ def eliminar_pelicula():
     #Recibimos data del POSTMAN
     data = request.get_json()
     
+    result = []
+
+    for comentario, value in enumerate(comentarios):
+        result.append(comentarios[comentario]["titulo"])
+
+    print(result)
+
     #Chequeamos la data
     if request.method == 'DELETE':
-        for pelicula in peliculas["peliculas"]:
-            if ("titulo" in data) and ("anio" in data):
-                if (pelicula["titulo"] == data["titulo"]) and (pelicula["anio"] == data["anio"]):
-                    
-                    print("estamos aca")
+            for pelicula in peliculas["peliculas"]:
+                if ("titulo" in data) and ("anio" in data):
+                    if (pelicula["titulo"] == data["titulo"]) and (pelicula["anio"] == data["anio"]):
+                        if (data["titulo"] in result and data["titulo"] == pelicula["titulo"]):
+                            return Response("Esta pelicula, tiene comentarios, no se puede borrar", status= HTTPStatus.BAD_REQUEST)
+                        else:
+                            print('funciona')
+                            # Borramos la pelicula del JSON
+                            pelicula.clear()
 
-                    # Borramos la pelicula del JSON
-                    pelicula.clear()
-    
-                    # Dumpeamos Json en modoo Write
-                    with open ('peliculas.json', "w") as peliculas_file:
-                        json.dump(peliculas, peliculas_file, indent=5)
+                        # Dumpeamos Json en modoo Write
+                        with open ('peliculas.json', "w") as peliculas_file:
+                            json.dump(peliculas, peliculas_file, indent=5)
 
-                    return Response('Pelicula borrada exitosamente', status= HTTPStatus.OK)
-        else:
-            return Response("{}", status= HTTPStatus.BAD_REQUEST)
+                        return Response('Pelicula borrada exitosamente', status= HTTPStatus.OK)
+            else:
+                return Response("{}", status= HTTPStatus.BAD_REQUEST)
     
 
 # Actualizar pelicula
@@ -175,7 +178,7 @@ def actualizar_datos_pelicula():
                     
     else:
         return Response("{}", status= HTTPStatus.BAD_REQUEST)
-
+    
 # Agregar comentarios desde POSTMAN
 @app.route("/agregar/comentario", methods = ["POST"])
 def agregar_comentario():
@@ -213,22 +216,23 @@ def obtener_comentario():
         return Response("{}", status= HTTPStatus.BAD_REQUEST)
 
 
-
-# Eliminar comentarios desde POSMAN
-
-
 # Forms desde HTML 
 
 # Ingresar Usuario desde Formulario HTML
 @app.route('/login', methods=['GET', 'POST'])
 def Ingresar():
-
     # Recibimos data del form
     user = request.form.get('user')
     passw = request.form.get('password')
 
+    # Recibimos data del PostMan
+    data_postman = request.get_json()
+
     if request.method == 'POST':
         for usuario in usuarios['usuarios']:
+            if data_postman:
+                if (usuario['nombre'] == data_postman["nombre"]) and (usuario['password'] == data_postman["password"]):
+                    return Response("Usuario logeado correctamente", HTTPStatus.OK)
             if (usuario['nombre'] == user) and (usuario['password'] == passw):
                 return redirect('/usuario_premium')
             else:
